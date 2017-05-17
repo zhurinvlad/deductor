@@ -4,8 +4,8 @@ class QuestionnairesController < ApplicationController
   # GET /questionnaires/1.json
   def show
     @questionnaire = Questionnaire.find_by(uid: params[:id])
-    if @questionnaire.nil? || @questionnaire.status == 'completed'
-      render :retry
+    if @questionnaire.blank? || @questionnaire.status == 'completed'
+      render plain: "Анкета не найдена"
     else
       render :show
     end
@@ -14,6 +14,6 @@ class QuestionnairesController < ApplicationController
   # POST /questionnaires
   # POST /questionnaires.json
   def create
-
+    #здесь сохраняем анкету в БД
   end
 end

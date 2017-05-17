@@ -1,7 +1,7 @@
 <div class="info">
 <h1>Здравствуйте!</h1>
 </div>
-<form id="questions_form" action="/forms" method="post">
+<form id="questions_form" action="/questionnaires" method="post">
    <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
     <div class="form-group question">       
         <%= render partial: "q1"%>     
