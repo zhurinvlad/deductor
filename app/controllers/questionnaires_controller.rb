@@ -4,7 +4,7 @@ class QuestionnairesController < ApplicationController
   # GET /questionnaires/1.json
   def show
     @questionnaire = Questionnaire.find_by(uid: params[:id])
-    if @questionnaire.blank? || @questionnaire.status == 'completed'
+    if @questionnaire.blank? || @questionnaire.completed?
       render plain: "Анкета не найдена"
     else
       render :show
