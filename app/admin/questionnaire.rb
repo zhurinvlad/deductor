@@ -15,7 +15,7 @@ ActiveAdmin.register Questionnaire do
     # This code is evaluated within the controller class
 
     def new
-      Questionnaire.create!(status: 2)
+      Questionnaire.create!(status: :ready)
       flash[:notice] = "Новая анкета успешно создана."
       redirect_to admin_questionnaires_path
     end

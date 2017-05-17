@@ -13,15 +13,41 @@
  *= require_tree .
  *= require_self
  */
-
-body {
-    background: url(back.svg) no-repeat;
-    -moz-background-size: 100%; /* Firefox 3.6+ */
-    -webkit-background-size: 100%; /* Safari 3.1+ и Chrome 4.0+ */
-    -o-background-size: 100%; /* Opera 9.6+ */
-    background-size: 100%; /* Современные браузеры */
-    /*min-width: 1400px; !* Минимальная высота *!*/
+@import "bootstrap-sprockets";
+@import "bootstrap";
+body{
+  background-image: image_url('back.svg');
+  background-size: cover;
+  font-family: Roboto;
+  font-size: 200%;
 }
-.title{
-    text-align: center
+.question{
+    background-color: #464f6e;
+    padding: 2% 2% 2% 2%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    color: white;
+    border-radius:10px;
+}
+
+.radio-inline > label
+{
+  font-weight: normal;
+}
+
+.question > input[type=number]{
+  width: 50%;
+  display: block;
+  padding: 1% 0 1% 1%;
+
+}
+.info{
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 5%;
+  margin-top:5%;
+  color: white;
+}
+.submit-button{
+  margin-bottom: 1%;
 }

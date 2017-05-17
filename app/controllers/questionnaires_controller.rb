@@ -1,5 +1,5 @@
 class QuestionnairesController < ApplicationController
-
+  layout "form", only: :show
   # GET /questionnaires/1
   # GET /questionnaires/1.json
   def show
