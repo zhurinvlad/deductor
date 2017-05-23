@@ -13,8 +13,6 @@ class QuestionnairesController < ApplicationController
   # PATCH/PUT /questionnaires/1.json
   def update
     if params[:questionnare].present? # TODO добавить валидацию && validate_questionnare!
-      @questionnaire.send_to_deductor
-      # TODO обработка ответа от deductor
       answers = params[:questionnare].to_xml
       @questionnaire.update_attributes(
           status: :completed,

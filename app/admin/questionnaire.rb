@@ -24,7 +24,7 @@ ActiveAdmin.register Questionnaire do
       redirect_to admin_questionnaires_path
     end
   end
-
+  # TODO фильтр по статусам
   index do
     selectable_column
     column :uid
