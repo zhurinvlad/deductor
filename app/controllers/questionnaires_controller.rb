@@ -12,14 +12,11 @@ class QuestionnairesController < ApplicationController
   # PATCH/PUT /questionnaires/1
   # PATCH/PUT /questionnaires/1.json
   def update
-    if params[:questionnare].present? # TODO добавить валидацию && validate_questionnare!
-      answers = params[:questionnare].to_xml
-      @questionnaire.update_attributes(
-          status: :completed,
-          answer: answers
-      )
-      render_to_msg('Успешно пройден')
-    end
+    @questionnaire.update_attributes(
+        status: :completed,
+        answer: questionnaire_params.to_xml
+    )
+    render_to_msg('Успешно пройден')
   rescue => e
     logger.info("ОШИБКА: #{e}")
     @questionnaire.update_attributes(status: :error)
@@ -40,8 +37,12 @@ class QuestionnairesController < ApplicationController
     render :msg, :locals => { message: message }
   end
 
-  def validate_questionnare
-    params.require(:questionnare).permit(
+  def questionnaire_params
+    params[:questionnare][:q1_problems] ||= nil
+    params[:questionnare][:q2_worths] ||= nil
+    params[:questionnare][:q4_funs] ||= nil
+
+    permitted = params.require(:questionnare).permit(
         {q1_problems: []}, 
         {q2_worths: []},
         :q3_free_time,
@@ -53,7 +54,15 @@ class QuestionnairesController < ApplicationController
         :education,
         :family,
         :sex,
-        :social
+        :social,
+        :social_other
       )
+      if  ( permitted[:q1_problems].size != 5 ) || 
+          ( permitted[:q2_worths].size < 1 ||  permitted[:q2_worths].size > 5 ) ||
+          ( permitted[:q4_funs].size < 1 ||  permitted[:q4_funs].size > 3 )
+        raise
+      else
+        permitted
+      end
   end
 end
