@@ -5,6 +5,7 @@ ru:
       warn: Заполняется...
       completed: Успешно завершена
       error: Завершена с ошибкой
+      analyzed: Проанализированна
   errors:
     messages:
       record_invalid: 'Возникли ошибки: %{errors}'

@@ -14,6 +14,7 @@ ActiveAdmin.register Questionnaire do
 
   member_action :analyze, method: :post do
     DeductorWorker.perform_async(resource.id)
+    resource.update_attributes!(is_analyze: true)
     redirect_to admin_questionnaires_path, notice: "Анкета успешно поставлена в очередь на анализ!"
   end
 
@@ -48,8 +49,8 @@ ActiveAdmin.register Questionnaire do
     attributes_table do
       row :uid
       row :is_analyze
-      row (:status) {|estimate| status_tag estimate.status, label: I18n.t("questionnaires.status.#{estimate.status}")}
-      row (:answer) {|estimate| textarea Nokogiri::XML(estimate.answer).to_xml, readonly: true, style: 'width: 100%; height: 420px;'}
+      row (:status) {|q| status_tag q.status, label: I18n.t("questionnaires.status.#{q.status}")}
+      row (:answer) {|q| textarea Nokogiri::XML(q.answer).to_xml, readonly: true, style: 'width: 100%; height: 420px;'}
       row :created_at
       row :updated_at
     end

@@ -1,6 +1,6 @@
 class Questionnaire < ApplicationRecord
   # gray, yellow, green, red
-  enum status: [:ready, :warn, :completed, :error]
+  enum status: [:ready, :warn, :completed, :error, :analyzed]
   before_create :randomize_id
 
   def send_to_deductor
