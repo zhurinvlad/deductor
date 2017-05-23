@@ -23,8 +23,7 @@ class QuestionnairesController < ApplicationController
       render_to_msg('Успешно пройден')
     end
   rescue => e
-    logger.debug(e)
-    # TODO Описание ошибки
+    logger.info("ОШИБКА: #{e}")
     @questionnaire.update_attributes(status: :error)
     render_to_msg('Возникла непредвиденная ошибка, попробуйте еще раз')
   end
