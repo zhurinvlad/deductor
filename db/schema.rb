@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170504105315) do
+ActiveRecord::Schema.define(version: 20170523085415) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 20170504105315) do
     t.integer  "status",     default: 0
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.string   "answer"
     t.index ["uid"], name: "index_questionnaires_on_uid", unique: true
   end
 

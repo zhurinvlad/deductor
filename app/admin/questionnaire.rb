@@ -29,5 +29,21 @@ ActiveAdmin.register Questionnaire do
     column :updated_at
     actions
   end
+  show do
+    attributes_table do
+      row :uid
+      row (:status) {|estimate| status_tag estimate.status, label: I18n.t("questionnaires.status.#{estimate.status}")}
+      row (:answer) {|estimate| textarea Nokogiri::XML(estimate.answer).to_xml, readonly: true, style: 'width: 100%; height: 420px;'}
+      row :created_at
+      row :updated_at
+    end
+    active_admin_comments
+  end
+  # show do
+  #   h3 questionnaire.uid
+  #   div do
+  #     textarea questionnaire.answer, class: 'asr'
+  #   end
+  # end
 
 end

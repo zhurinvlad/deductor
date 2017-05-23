@@ -1,8 +1,10 @@
 <div class="info">
 <h1>Здравствуйте!</h1>
 </div>
-<form id="questions_form" action="/questionnaires" method="post">
+<form id="questions_form" action= <%="/questionnaires/#{@questionnaire.uid}"%> method="post">
    <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+   <input type="hidden" name="_method" value="put" />
+
     <div class="form-group question">       
         <%= render partial: "q1"%>     
     </div>
