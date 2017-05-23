@@ -38,6 +38,6 @@ class QuestionnairesController < ApplicationController
   end
 
   def render_to_msg(message)
-    render :msg, message: message
+    render :msg, :locals => { message: message }
   end
 end

@@ -11,7 +11,4 @@ class Questionnaire < ApplicationRecord
     end while Questionnaire.where(id: self.uid).exists?
   end
 
-  def validate_questionnare!()
-
-  end
 end
