@@ -39,4 +39,21 @@ class QuestionnairesController < ApplicationController
   def render_to_msg(message)
     render :msg, :locals => { message: message }
   end
+
+  def validate_questionnare
+    params.require(:questionnare).permit(
+        {q1_problems: []}, 
+        {q2_worths: []},
+        :q3_free_time,
+        {q4_funs: []},
+        :q5_phys_health,
+        :q6_moral_health,
+        :q7_bad,
+        :age,
+        :education,
+        :family,
+        :sex,
+        :social
+      )
+  end
 end
