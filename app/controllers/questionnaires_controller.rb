@@ -38,9 +38,9 @@ class QuestionnairesController < ApplicationController
   end
 
   def questionnaire_params
-    params[:questionnare][:q1_problems] ||= nil
-    params[:questionnare][:q2_worths] ||= nil
-    params[:questionnare][:q4_funs] ||= nil
+    params[:questionnare][:q1_problems] ||= []
+    params[:questionnare][:q2_worths] ||= []
+    params[:questionnare][:q4_funs] ||= []
 
     permitted = params.require(:questionnare).permit(
         {q1_problems: []}, 
@@ -60,7 +60,7 @@ class QuestionnairesController < ApplicationController
       if  ( permitted[:q1_problems].size != 5 ) || 
           ( permitted[:q2_worths].size < 1 ||  permitted[:q2_worths].size > 5 ) ||
           ( permitted[:q4_funs].size < 1 ||  permitted[:q4_funs].size > 3 )
-        raise
+        raise "Non valid parameters"
       else
         permitted
       end
