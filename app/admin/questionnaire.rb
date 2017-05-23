@@ -11,9 +11,13 @@ ActiveAdmin.register Questionnaire do
 #   permitted << :other if params[:action] == 'create' && current_user.admin?
 #   permitted
 # end
-  controller do
-    # This code is evaluated within the controller class
 
+  member_action :analyze, method: :post do
+    DeductorWorker.perform_async(resource.id)
+    redirect_to admin_questionnaires_path, notice: "Анкета успешно поставлена в очередь на анализ!"
+  end
+
+  controller do
     def new
       Questionnaire.create!(status: :ready)
       flash[:notice] = "Новая анкета успешно создана."
@@ -24,14 +28,19 @@ ActiveAdmin.register Questionnaire do
   index do
     selectable_column
     column :uid
-    column (:status) {|estimate| status_tag estimate.status, label: I18n.t("questionnaires.status.#{estimate.status}")}
+    column :is_analyze
+    column (:status) {|q| status_tag q.status, label: I18n.t("questionnaires.status.#{q.status}")}
     column :created_at
     column :updated_at
-    actions
+    actions defaults: true do |q|
+      link_to "Анализ", analyze_admin_questionnaire_path(q), method: :post, class: "member_link" if q.completed? && !q.is_analyze
+    end
   end
+
   show do
     attributes_table do
       row :uid
+      row :is_analyze
       row (:status) {|estimate| status_tag estimate.status, label: I18n.t("questionnaires.status.#{estimate.status}")}
       row (:answer) {|estimate| textarea Nokogiri::XML(estimate.answer).to_xml, readonly: true, style: 'width: 100%; height: 420px;'}
       row :created_at
