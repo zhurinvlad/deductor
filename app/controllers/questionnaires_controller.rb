@@ -6,23 +6,25 @@ class QuestionnairesController < ApplicationController
   # GET /questionnaires/1
   # GET /questionnaires/1.json
   def show
+    @questionnaire.update_attributes(status: :warn)
   end
 
   # PATCH/PUT /questionnaires/1
   # PATCH/PUT /questionnaires/1.json
   def update
-    if params[:questionnare].present?
-      # TODO добавить валидацию
-      # && validate_questionnare!
+    if params[:questionnare].present? # TODO добавить валидацию && validate_questionnare!
+      @questionnaire.send_to_deductor
+      # TODO обработка ответа от deductor
       answers = params[:questionnare].to_xml
       @questionnaire.update_attributes(
           status: :completed,
           answer: answers
       )
-      # TODO Push to Deductor
       render_to_msg('Успешно пройден')
     end
-  rescue
+  rescue => e
+    logger.debug(e)
+    # TODO Описание ошибки
     @questionnaire.update_attributes(status: :error)
     render_to_msg('Возникла непредвиденная ошибка, попробуйте еще раз')
   end

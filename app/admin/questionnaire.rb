@@ -39,11 +39,5 @@ ActiveAdmin.register Questionnaire do
     end
     active_admin_comments
   end
-  # show do
-  #   h3 questionnaire.uid
-  #   div do
-  #     textarea questionnaire.answer, class: 'asr'
-  #   end
-  # end
 
 end
